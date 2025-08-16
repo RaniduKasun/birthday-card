@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🎉</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+      background-size: 800% 800%;
+      animation: gradientShift 20s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      width: min(90%, 700px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    @media(max-width: 700px) {
+      .card { grid-template-columns: 1fr; }
+    }
+    .photo-frame {
+      border: 4px solid white;
+      border-radius: 15px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .upload-btn {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .content { color: white; text-align: center; align-self: center; }
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      background: linear-gradient(90deg,#ffecd2,#fcb69f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    h2 { font-size: clamp(1rem, 2vw, 1.4rem); margin-bottom: 1rem; }
+    ul { list-style: none; margin-bottom: 1rem; }
+    ul li { margin: 0.3rem 0; }
+    .buttons { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+    button {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover { transform: scale(1.05); }
+    canvas.confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+    .footer { text-align: center; margin-top: 1rem; font-size: 0.8rem; color: white; }
+  </style>
+</head>
+<body>
+  <canvas class="confetti"></canvas>
+  <div class="card">
+    <div class="photo-frame" id="photoFrame">
+      <span style="color:white;opacity:0.6;">Upload Photo</span>
+      <input type="file" accept="image/*" id="uploadInput" style="display:none">
+      <button class="upload-btn" id="uploadBtn">Add Photo</button>
+    </div>
+    <div class="content">
+      <h1 id="greeting">Happy Birthday, Friend! 🎉</h1>
+      <h2>Wishing you joy and laughter today!</h2>
+      <ul>
+        <li>✨ Stay happy and healthy</li>
+        <li>🎂 May your dreams come true</li>
+        <li>🎁 Celebrate to the fullest</li>
+      </ul>
+      <div class="buttons">
+        <button id="confettiBtn">Confetti!</button>
+        <button id="balloonBtn">Balloons 🎈</button>
+        <button id="copyBtn">Copy Message</button>
+        <button id="muteBtn">🔊</button>
+      </div>
+      <div class="footer">Celebrated on <span id="today"></span> 🎊</div>
+    </div>
+  </div>
+  <script>
+    const canvas = document.querySelector('.confetti');
+    const ctx = canvas.getContext('2d');
+    let W, H; function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;} resize(); window.onresize=resize;
+
+    // Confetti particles
+    let confetti=[];
+    function makeConfetti(){
+      for(let i=0;i<150;i++){
+        confetti.push({
+          x:Math.random()*W,
+          y:Math.random()*-H,
+          r:5+Math.random()*10,
+          c:`hsl(${Math.random()*360},100%,50%)`,
+          d:Math.random()*7+2
+        });
+      }
+    }
+    function drawConfetti(){
+      ctx.clearRect(0,0,W,H);
+      confetti.forEach(p=>{
+        ctx.fillStyle=p.c;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+      });
+    }
+    function updateConfetti(){
+      confetti.forEach(p=>{
+        p.y+=p.d;
+        if(p.y>H) p.y=-10;
+      });
+    }
+    function loop(){drawConfetti();updateConfetti();requestAnimationFrame(loop);} loop();
+
+    document.getElementById('confettiBtn').onclick=()=>{makeConfetti(); playSound('pop');};
+
+    // Balloons using GSAP
+    function launchBalloon(){
+      const b=document.createElement('div');
+      b.textContent='🎈';
+      b.style.position='fixed';
+      b.style.left=Math.random()*W+'px';
+      b.style.top=H+'px';
+      b.style.fontSize='2rem';
+      document.body.appendChild(b);
+      gsap.to(b,{y:-H-100,x:"+=50",duration:6+Math.random()*3,ease:"power1.out",onComplete:()=>b.remove()});
+    }
+    document.getElementById('balloonBtn').onclick=()=>{for(let i=0;i<10;i++) launchBalloon(); playSound('cheer');};
+
+    // Copy message
+    document.getElementById('copyBtn').onclick=()=>{
+      const msg=document.getElementById('greeting').textContent+"\nWishing you joy and laughter today!";
+      navigator.clipboard.writeText(msg);
+      alert("Message copied!");
+    };
+
+    // Mute / sounds
+    let muted=false;document.getElementById('muteBtn').onclick=()=>{muted=!muted;document.getElementById('muteBtn').textContent=muted?'🔇':'🔊'};
+    const ctxAudio=new (window.AudioContext||window.webkitAudioContext)();
+    function playSound(type){if(muted)return; const o=ctxAudio.createOscillator(); const g=ctxAudio.createGain(); o.connect(g).connect(ctxAudio.destination); o.type='sine';
+      if(type==='pop') o.frequency.value=400; else if(type==='cheer') o.frequency.value=600; else o.frequency.value=800;
+      g.gain.setValueAtTime(0.1,ctxAudio.currentTime);
+      o.start(); o.stop(ctxAudio.currentTime+0.2);
+    }
+
+    // Photo upload
+    const uploadBtn=document.getElementById('uploadBtn');
+    const uploadInput=document.getElementById('uploadInput');
+    const photoFrame=document.getElementById('photoFrame');
+    uploadBtn.onclick=()=>uploadInput.click();
+    uploadInput.onchange=(e)=>{
+      const file=e.target.files[0];
+      if(file){
+        const img=document.createElement('img');
+        img.src=URL.createObjectURL(file);
+        photoFrame.innerHTML='';
+        photoFrame.appendChild(img);
+        photoFrame.appendChild(uploadBtn);
+      }
+    };
+
+    // Footer date
+    document.getElementById('today').textContent=new Date().toLocaleDateString();
+
+    // Animate card entrance
+    gsap.from(".card",{scale:0.8,opacity:0,duration:1,ease:"back.out(1.7)"});
+  </script>
+</body>
+</html>
