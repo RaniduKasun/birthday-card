@@ -1,205 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday 🎉</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-      background-size: 800% 800%;
-      animation: gradientShift 20s ease infinite;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .card {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2rem;
-      width: min(90%, 700px);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    }
-    @media(max-width: 700px) {
-      .card { grid-template-columns: 1fr; }
-    }
-    .photo-frame {
-      border: 4px solid white;
-      border-radius: 15px;
-      overflow: hidden;
-      aspect-ratio: 1 / 1;
-      background: rgba(255,255,255,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
-    .upload-btn {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 0.3rem 0.7rem;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-    .content { color: white; text-align: center; align-self: center; }
-    h1 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      background: linear-gradient(90deg,#ffecd2,#fcb69f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-    }
-    h2 { font-size: clamp(1rem, 2vw, 1.4rem); margin-bottom: 1rem; }
-    ul { list-style: none; margin-bottom: 1rem; }
-    ul li { margin: 0.3rem 0; }
-    .buttons { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
-    button {
-      background: rgba(255,255,255,0.2);
-      border: none;
-      border-radius: 10px;
-      padding: 0.6rem 1rem;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    button:hover { transform: scale(1.05); }
-    canvas.confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-    .footer { text-align: center; margin-top: 1rem; font-size: 0.8rem; color: white; }
-  </style>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ranidu | Cyber & Web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
-  <canvas class="confetti"></canvas>
-  <div class="card">
-    <div class="photo-frame" id="photoFrame">
-      <span style="color:white;opacity:0.6;">Upload Photo</span>
-      <input type="file" accept="image/*" id="uploadInput" style="display:none">
-      <button class="upload-btn" id="uploadBtn">Add Photo</button>
-    </div>
-    <div class="content">
-      <h1 id="greeting">Happy Birthday, Friend! 🎉</h1>
-      <h2>Wishing you joy and laughter today!</h2>
-      <ul>
-        <li>✨ Stay happy and healthy</li>
-        <li>🎂 May your dreams come true</li>
-        <li>🎁 Celebrate to the fullest</li>
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <header>
+    <nav>
+      <div class="logo">RANIDU<span class="dot">.</span></div>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="buttons">
-        <button id="confettiBtn">Confetti!</button>
-        <button id="balloonBtn">Balloons 🎈</button>
-        <button id="copyBtn">Copy Message</button>
-        <button id="muteBtn">🔊</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero">
+      <div class="hero-bg-img"></div>
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1 class="glitch" data-text="DESIGN & SECURITY">DESIGN & <span class="accent">SECURITY</span></h1>
+        <p class="subtitle">Crafting beautiful interfaces. Securing digital frontiers.</p>
+        <div class="cta-container">
+          <a href="#contact" class="btn primary">Start a Project</a>
+        </div>
       </div>
-      <div class="footer">Celebrated on <span id="today"></span> 🎊</div>
+    </section>
+
+    <section id="about">
+      <div class="content-wrapper">
+        <h2 class="section-title">Who Am I?</h2>
+        <p class="bio">
+          I am a student passionate about <strong>Web Designing</strong> and <strong>Cybersecurity</strong>.
+          I blend the art of aesthetics with the science of security to create modern, resilient digital experiences.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="content-wrapper">
+        <h2 class="section-title"> technologies</h2>
+        <div class="skills-grid">
+          <div class="skill-item">HTML5 & CSS3</div>
+          <div class="skill-item">JavaScript (ES6+)</div>
+          <div class="skill-item">GSAP & Anime.js</div>
+          <div class="skill-item">Network Security</div>
+          <div class="skill-item">Ethical Hacking</div>
+          <div class="skill-item">UI/UX Design</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Injected Work Section -->
+    <section id="work">
+      <div class="content-wrapper">
+        <h2 class="section-title">Experience & Work</h2>
+
+        <!-- Stats Counter -->
+        <div class="stats-container">
+          <div class="stat-item">
+            <h3 class="stat-number" data-target="15">0</h3>
+            <p>Projects Completed</p>
+          </div>
+          <div class="stat-item">
+            <h3 class="stat-number" data-target="3">0</h3>
+            <p>Years Experience</p>
+          </div>
+          <div class="stat-item">
+            <h3 class="stat-number" data-target="8">0</h3>
+            <p>Certifications</p>
+          </div>
+        </div>
+
+        <!-- Projects & Quals Grid -->
+        <div class="work-grid">
+          <!-- Projects -->
+          <div class="projects-column">
+            <h3>Recent Projects</h3>
+            <div class="project-card">
+              <h4>SecureBank App</h4>
+              <p>A banking app with biometric authentication and end-to-end encryption.</p>
+              <div class="tags">
+                <span>React</span><span>Node.js</span><span>Security</span>
+              </div>
+            </div>
+            <div class="project-card">
+              <h4>Neon Portfolio</h4>
+              <p>Personal portfolio template featuring 3D animations and dark mode.</p>
+              <div class="tags">
+                <span>Three.js</span><span>GSAP</span><span>Vite</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Qualifications -->
+          <div class="quals-column">
+            <h3>Qualifications</h3>
+            <div class="timeline-item">
+              <span class="year">2024</span>
+              <h4>Certified Ethical Hacker</h4>
+              <p>EC-Council</p>
+            </div>
+            <div class="timeline-item">
+              <span class="year">2023</span>
+              <h4>Advanced Web Design</h4>
+              <p>University of Colombo</p>
+            </div>
+            <div class="timeline-item">
+              <span class="year">2022</span>
+              <h4>Network Security Basics</h4>
+              <p>Cisco Networking Academy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="content-wrapper">
+        <h2 class="section-title">Get in Touch</h2>
+        <p>Have a project in mind or want to discuss security?</p>
+        <a href="mailto:hello@example.com" class="btn secondary">Say Hello</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">RANIDU<span class="dot">.</span></div>
+      <p>Building the future, securing the present.</p>
+
+      <div class="social-links">
+        <a href="#" class="social-icon" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-github">
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+            </path>
+          </svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-linkedin">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-twitter">
+            <path
+              d="M23 3a10.9 10.9 0 0 1-3.14.85 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+            </path>
+          </svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-instagram">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+      </div>
+      <p class="copyright">© 2025 Ranidu. All rights reserved.</p>
     </div>
-  </div>
-  <script>
-    const canvas = document.querySelector('.confetti');
-    const ctx = canvas.getContext('2d');
-    let W, H; function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;} resize(); window.onresize=resize;
+  </footer>
 
-    // Confetti particles
-    let confetti=[];
-    function makeConfetti(){
-      for(let i=0;i<150;i++){
-        confetti.push({
-          x:Math.random()*W,
-          y:Math.random()*-H,
-          r:5+Math.random()*10,
-          c:`hsl(${Math.random()*360},100%,50%)`,
-          d:Math.random()*7+2
-        });
-      }
-    }
-    function drawConfetti(){
-      ctx.clearRect(0,0,W,H);
-      confetti.forEach(p=>{
-        ctx.fillStyle=p.c;
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fill();
-      });
-    }
-    function updateConfetti(){
-      confetti.forEach(p=>{
-        p.y+=p.d;
-        if(p.y>H) p.y=-10;
-      });
-    }
-    function loop(){drawConfetti();updateConfetti();requestAnimationFrame(loop);} loop();
-
-    document.getElementById('confettiBtn').onclick=()=>{makeConfetti(); playSound('pop');};
-
-    // Balloons using GSAP
-    function launchBalloon(){
-      const b=document.createElement('div');
-      b.textContent='🎈';
-      b.style.position='fixed';
-      b.style.left=Math.random()*W+'px';
-      b.style.top=H+'px';
-      b.style.fontSize='2rem';
-      document.body.appendChild(b);
-      gsap.to(b,{y:-H-100,x:"+=50",duration:6+Math.random()*3,ease:"power1.out",onComplete:()=>b.remove()});
-    }
-    document.getElementById('balloonBtn').onclick=()=>{for(let i=0;i<10;i++) launchBalloon(); playSound('cheer');};
-
-    // Copy message
-    document.getElementById('copyBtn').onclick=()=>{
-      const msg=document.getElementById('greeting').textContent+"\nWishing you joy and laughter today!";
-      navigator.clipboard.writeText(msg);
-      alert("Message copied!");
-    };
-
-    // Mute / sounds
-    let muted=false;document.getElementById('muteBtn').onclick=()=>{muted=!muted;document.getElementById('muteBtn').textContent=muted?'🔇':'🔊'};
-    const ctxAudio=new (window.AudioContext||window.webkitAudioContext)();
-    function playSound(type){if(muted)return; const o=ctxAudio.createOscillator(); const g=ctxAudio.createGain(); o.connect(g).connect(ctxAudio.destination); o.type='sine';
-      if(type==='pop') o.frequency.value=400; else if(type==='cheer') o.frequency.value=600; else o.frequency.value=800;
-      g.gain.setValueAtTime(0.1,ctxAudio.currentTime);
-      o.start(); o.stop(ctxAudio.currentTime+0.2);
-    }
-
-    // Photo upload
-    const uploadBtn=document.getElementById('uploadBtn');
-    const uploadInput=document.getElementById('uploadInput');
-    const photoFrame=document.getElementById('photoFrame');
-    uploadBtn.onclick=()=>uploadInput.click();
-    uploadInput.onchange=(e)=>{
-      const file=e.target.files[0];
-      if(file){
-        const img=document.createElement('img');
-        img.src=URL.createObjectURL(file);
-        photoFrame.innerHTML='';
-        photoFrame.appendChild(img);
-        photoFrame.appendChild(uploadBtn);
-      }
-    };
-
-    // Footer date
-    document.getElementById('today').textContent=new Date().toLocaleDateString();
-
-    // Animate card entrance
-    gsap.from(".card",{scale:0.8,opacity:0,duration:1,ease:"back.out(1.7)"});
-  </script>
+  <script type="module" src="/src/main.js"></script>
 </body>
+
 </html>
